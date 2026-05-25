@@ -234,7 +234,7 @@ async function login() {
   btn.disabled = true;
   try {
     const r = await api('verifyPassword', { password: pwd });
-    if (r.ok) {
+    if (r && r.ok) {
       document.getElementById('login-page').style.display = 'none';
       document.getElementById('app-page').style.display = 'flex';
       loadAll();
@@ -242,6 +242,8 @@ async function login() {
       toast('密碼錯誤');
     }
   } catch(e) {
+    toast('連線失敗，請稍後再試');
+    console.error(e);
   }
   btn.textContent = '登入';
   btn.disabled = false;
